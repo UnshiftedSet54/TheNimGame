@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Document</title>
+      <link rel="stylesheet" href="index.css">
+   </head>
+
+   <body>
+      <header>
+         <h1>The Nim Game</h1>
+      </header>
+      <div class="container">
+         <div class="ico" id="ico1" data-file="icon"></div>
+         <div class="ico" id="ico2" data-file="icon"></div>
+         <div class="ico" id="ico3" data-file="icon"></div>
+         <div class="ico" id="ico4" data-file="icon"></div>
+         <div class="ico" id="ico5" data-file="icon"></div>
+         <div class="ico" id="ico6" data-file="icon"></div>
+         <div class="ico" id="ico7" data-file="icon"></div>
+         <div class="ico" id="ico8" data-file="icon"></div>
+         <div class="ico" id="ico9" data-file="icon"></div>
+         <div class="ico" id="ico10" data-file="icon"></div>
+         <div class="ico" id="ico11" data-file="icon"></div>
+         <div class="ico" id="ico12" data-file="icon"></div>
+      </div>
+      <div class="players">
+         <div class="player1">
+            <h4>UnshiftedSet54</h4>
+            <p>Score: <span id="p1-pts">0</span></p>
+         </div>
+         <div class="player2">
+            <h4>DrLester73</h4>
+            <p>Score: <span>0</span></p>
+         </div>
+      </div>
+
+      <script src="./node_modules/lottie-web/build/player/lottie.min.js"></script>
+      <!-- <script src="./node_modules/siiimple-toast/dist/main.js"></script> -->
+
+      <script>
+         let ico = document.getElementsByClassName('ico');
+         let clicks = 0;
+
+
+         Array.prototype.forEach.call(ico, icon => {
+            let anim = bodymovin.loadAnimation({
+               container: icon,
+               path: `icon/${icon.dataset.file}.json`,
+               renderer: 'svg',
+               loop: false,
+               autoplay: false
+            });
+
+            icon.addEventListener('click', () => {
+               if (clicks < 3) {
+                  playAnim(anim);
+                  icon.style.backgroundColor = 'rgba(39, 39, 39, 0.164)';
+                  clicks++;
+                  //console.log(clicks);
+               } else {
+                  // Agregar alguin tipo de notificacion
+                  return;
+               }
+            });
+         })
+
+         function playAnim(animation) {
+            animation.setDirection(1);
+            animation.play();
+         }
+      </script>
+
+   </body>
+
+</html>

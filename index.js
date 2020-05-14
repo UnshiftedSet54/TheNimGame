@@ -2,12 +2,12 @@ const players = document.querySelectorAll(".player");
 
 let player1 = {
   element: players[0],
-  points: 0
+  points: 0,
 };
 
 let player2 = {
   element: players[1],
-  points: 0
+  points: 0,
 };
 
 let playerTurn = 0;
@@ -32,16 +32,16 @@ const ico = document.getElementsByClassName("ico");
 let clicks = 0;
 
 function loadBoard() {
-  Array.prototype.forEach.call(ico, icon => {
+  Array.prototype.forEach.call(ico, (icon) => {
     let anim = bodymovin.loadAnimation({
       container: icon,
       path: `icon/${icon.dataset.file}.json`,
       renderer: "svg",
       loop: false,
-      autoplay: false
+      autoplay: false,
     });
 
-    icon.addEventListener("click", event => {
+    icon.addEventListener("click", (event) => {
       if (totalPieces > 0) {
         if (
           clicks < 3 &&
@@ -102,16 +102,20 @@ function switchPlayer() {
 async function endGame() {
   if (totalPieces == 0) {
     if (playerTurn == 1) {
-      //await alert("PLAYER 2 HA GANADO! \nGracias por jugar :)");
-      await prompt("hola");
+      await alert("PLAYER 2 HA GANADO! \nGracias por jugar :)");
+      resetGame();
+      //await prompt("hola");
     } else {
-      // alert("Player 1 ha GANADO! \nGracias por jugar :)");
-      prompt("hola", "13");
+      await alert("Player 1 ha GANADO! \nGracias por jugar :)");
+      resetGame();
+      //prompt("hola", "13");
     }
   }
 }
 
-function resetGame() {}
+function resetGame() {
+  window.location.reload();
+}
 
 // Inicio del Juego...
 

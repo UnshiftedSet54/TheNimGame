@@ -2,4 +2,4 @@
 
 ### Juego de Nim hecho en JavaScript.
 
-[View Demo](https://unshiftedset54.github.io/TheNimGame/)
+[Ver Demo](https://unshiftedset54.github.io/TheNimGame/)

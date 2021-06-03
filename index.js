@@ -73,10 +73,10 @@ function switchPlayer() {
 function endGame() {
   if (totalPieces == 0) {
     if (playerTurn == 1) {
-      alert("PLAYER 2 HA GANADO! \nGracias por jugar :)");
+      alert("PLAYER 2 WON! \nThanks for playing!");
       resetGame();
     } else {
-      alert("Player 1 ha GANADO! \nGracias por jugar :)");
+      alert("PLAYER 1 WON! \nThanks for playing!");
       resetGame();
     }
   }

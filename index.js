@@ -1,3 +1,5 @@
+// Se escoge que jugador empieza primero...
+
 const players = document.querySelectorAll(".player");
 
 let player1 = {
@@ -13,77 +15,46 @@ let player2 = {
 let playerTurn = 0;
 let totalPieces = 11;
 
-const pts = document.querySelectorAll(".pts");
-
-// Se escoge que jugador empieza primero...
-
 function chooseStartPlayer() {
   const initPlayer = Math.round(Math.random() * 2);
   initPlayer == 1
     ? player1.element.classList.toggle("darken")
     : player2.element.classList.toggle("darken");
-  console.log("hola");
   playerTurn = initPlayer;
 }
 
 // Se genera el tablero con todas las piesas...
-
-const ico = document.getElementsByClassName("ico");
 let clicks = 0;
 
 function loadBoard() {
-  Array.prototype.forEach.call(ico, (icon) => {
-    let anim = bodymovin.loadAnimation({
-      container: icon,
-      path: `icon/${icon.dataset.file}.json`,
-      renderer: "svg",
-      loop: false,
-      autoplay: false,
-    });
-
-    icon.addEventListener("click", (event) => {
+  const icons = document.querySelectorAll('.icon');
+  icons.forEach((icon) => {
+    icon.addEventListener('click', (e) => {
       if (totalPieces > 0) {
-        if (
-          clicks < 3 &&
-          document.getElementById(event.path[1].id).classList[1] != "darken"
-        ) {
-          icon.classList.toggle("darken");
-          playAnim(anim);
+        if (clicks < 3) {
+          playAnimation(e);
           clicks++;
           totalPieces--;
-          setPoints();
-          console.log(totalPieces);
-          //icon.addEventListener("mouseup", loadPieces);
         } else {
-          // Agregar alguin tipo de notificacion
           return;
         }
       } else {
         endGame();
       }
-    });
+    }, false);
   });
 }
 
 // Metodo para comenzar la animacion...
 
-function playAnim(animation) {
-  //console.log(animation);
-  animation.setDirection(1);
-  animation.play();
-  //console.log(animation);
-}
-
-//Actualiza los puntos de los jugadores...
-
-function setPoints() {
-  if (playerTurn === 1) {
-    player1.points++;
-    pts[0].textContent = `${player1.points}`;
-  } else {
-    player2.points++;
-    pts[1].textContent = `${player2.points}`;
-  }
+function playAnimation(e) {
+  let currentElement = e.target;
+  let parentNode = e.target.parentNode;
+  let siblingNode = e.target.nextElementSibling;
+  parentNode.classList.add('darken');
+  currentElement.classList.add('hidden');
+  siblingNode.classList.remove('hidden');
+  siblingNode.removeEventListener('click', playAnimation, false);
 }
 
 // Manejo de turnos...
@@ -99,16 +70,14 @@ function switchPlayer() {
 
 // Decidir el ganador al terminar la partida...
 
-async function endGame() {
+function endGame() {
   if (totalPieces == 0) {
     if (playerTurn == 1) {
-      await alert("PLAYER 2 HA GANADO! \nGracias por jugar :)");
+      alert("PLAYER 2 HA GANADO! \nGracias por jugar :)");
       resetGame();
-      //await prompt("hola");
     } else {
-      await alert("Player 1 ha GANADO! \nGracias por jugar :)");
+      alert("Player 1 ha GANADO! \nGracias por jugar :)");
       resetGame();
-      //prompt("hola", "13");
     }
   }
 }
